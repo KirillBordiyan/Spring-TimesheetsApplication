@@ -18,14 +18,6 @@ public class TimesheetController {
 
     private final TimesheetService timesheetService;
 
-    public ResponseEntity<List<Timesheet>> getAll() {
-        List<Timesheet> resultList = timesheetService.getAll();
-        if (resultList.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(timesheetService.getAll());
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<Timesheet> get(@PathVariable Long id) {
         Optional<Timesheet> timesheet = timesheetService.getById(id);
@@ -35,6 +27,8 @@ public class TimesheetController {
 
     }
 
+    //TODO переписать методы filterAfter/Before и getAll в один
+    // тут вызывается только 1 метод сервиса
     @GetMapping
     public ResponseEntity<List<Timesheet>> getCreatedAt(@RequestParam(required = false) LocalDate createdAtAfter,
                                                         @RequestParam(required = false) LocalDate createdAtBefore) {
@@ -64,5 +58,13 @@ public class TimesheetController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         timesheetService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    public ResponseEntity<List<Timesheet>> getAll() {
+        List<Timesheet> resultList = timesheetService.getAll();
+        if (resultList.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(timesheetService.getAll());
     }
 }

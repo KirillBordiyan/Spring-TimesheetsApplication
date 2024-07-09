@@ -30,15 +30,6 @@ public class TimesheetService {
     public Timesheet create(Timesheet timesheet) {
         if (!isProjectExist(timesheet.getProjectId())) {
             return null;
-            //fixme хотя на самом деле можно просто создать этот проект
-            // но беда в том, что у нас нет названия этого проекта, а это == переписать логику появления сущностей
-            // в этом будет смысл во время использования БД, где можно триггерами при создании листа создавать проект
-            // либо если у timesheet поле будет содержать непосредственно объект project (не его id)
-            // -> тогда мы бы могли пофиксить то, что описано во 2 строке этого коммента
-
-            // todo по хорошему (мое мнение) хранить у timesheet не id, а весь объект
-            //  чтобы если проекта нет, его просто создать, а при его удалении каскадно удалялись бы листы
-            //  (замашка на будущее), но пока оставим так
         }
         timesheet.setCreatedAt(LocalDate.now());
         timesheetRepository.create(timesheet);
@@ -57,6 +48,8 @@ public class TimesheetService {
         timesheetRepository.delete(id);
     }
 
+    //TODO переписать методы filterAfter/Before и getAll в один
+    // тут есть 1 метод и он вызывает метод в репозитории
     public List<Timesheet> filterAfter(LocalDate filterDate) {
         return timesheetRepository.filterAfter(filterDate);
     }

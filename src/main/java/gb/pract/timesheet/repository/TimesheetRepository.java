@@ -38,6 +38,10 @@ public class TimesheetRepository {
                 .ifPresent(timesheetList::remove);
     }
 
+    //TODO переписать методы filterAfter/Before и getAll в один
+    // в объединенном методе ifы на проверку значений
+    // если указано 2 -> делать выборку между
+    // 1 ч 9 минут, на моздании ссылки на один лист
     public List<Timesheet> filterAfter(LocalDate filterDate) {
         return List.copyOf(timesheetList.stream()
                 .filter(timesheet -> timesheet.getCreatedAt().isAfter(filterDate))
