@@ -42,9 +42,6 @@ public class ProjectController {
     @PostMapping
     public ResponseEntity<Project> create(@RequestBody Project project) {
         project = projectService.create(project);
-        if (project == null) {
-            return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body(project);
-        }
         return ResponseEntity.status(HttpStatus.CREATED).body(project);
     }
 

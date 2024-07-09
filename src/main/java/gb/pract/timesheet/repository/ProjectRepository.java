@@ -15,13 +15,13 @@ public class ProjectRepository {
     private static Long sequence = 1L;
     private final List<Project> projectList = new ArrayList<>();
 
-    public Optional<Project> getById(Long id) {
+    public Optional<Project> findById(Long id) {
         return projectList.stream()
                 .filter(project -> Objects.equals(project.getProject_id(), id))
                 .findFirst();
     }
 
-    public List<Project> getAll() {
+    public List<Project> findAll() {
         return List.copyOf(projectList);
     }
 

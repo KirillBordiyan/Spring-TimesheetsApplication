@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -19,22 +20,28 @@ public class TimesheetService {
     private final TimesheetRepository timesheetRepository;
     private final ProjectRepository projectRepository;
 
-    public Optional<Timesheet> getById(Long id) {
+    public Optional<Timesheet> findById(Long id) {
         return timesheetRepository.getById(id);
     }
 
-    public List<Timesheet> getAll() {
-        return timesheetRepository.getAll();
+    public List<Timesheet> findAll(LocalDate createdAtBefore, LocalDate createdAtAfter) {
+        return timesheetRepository.findAll(createdAtBefore, createdAtAfter);
     }
 
     public Timesheet create(Timesheet timesheet) {
-        if (!isProjectExist(timesheet.getProjectId())) {
-            return null;
+
+        if(Objects.isNull(timesheet.getProjectId())){
+            throw new IllegalArgumentException("Project ID must not be null");
         }
+
+        if(projectRepository.findById(timesheet.getProjectId()).isEmpty()){
+            throw new NoSuchElementException("Project with ID " + timesheet.getProjectId() + " does not exists");
+        }
+
         timesheet.setCreatedAt(LocalDate.now());
         timesheetRepository.create(timesheet);
 
-        Optional<Project> projectInnerDB = projectRepository.getById(timesheet.getProjectId());
+        Optional<Project> projectInnerDB = projectRepository.findById(timesheet.getProjectId());
 
         projectInnerDB.ifPresent(project -> {
             Long projectId = project.getProject_id();
@@ -46,21 +53,5 @@ public class TimesheetService {
 
     public void delete(Long id) {
         timesheetRepository.delete(id);
-    }
-
-    //TODO переписать методы filterAfter/Before и getAll в один
-    // тут есть 1 метод и он вызывает метод в репозитории
-    public List<Timesheet> filterAfter(LocalDate filterDate) {
-        return timesheetRepository.filterAfter(filterDate);
-    }
-
-    public List<Timesheet> filterBefore(LocalDate filterDate) {
-        return timesheetRepository.filterBefore(filterDate);
-    }
-
-    private boolean isProjectExist(Long projectId) {
-        return projectRepository.getAll()
-                .stream()
-                .anyMatch(project -> Objects.equals(project.getProject_id(), projectId));
     }
 }

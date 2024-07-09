@@ -1,12 +1,7 @@
-package gb.pract.timesheet.controller;
+package gb.pract.timesheet.page;
 
 
-import gb.pract.timesheet.model.Project;
-import gb.pract.timesheet.model.Timesheet;
-import gb.pract.timesheet.model.dto.TimesheetPageDTO;
-import gb.pract.timesheet.sevice.ProjectService;
 import gb.pract.timesheet.sevice.TimesheetPageService;
-import gb.pract.timesheet.sevice.TimesheetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,7 +32,7 @@ public class TimesheetPageController {
 
         Optional<TimesheetPageDTO> pageDTO = timesheetPageService.findById(id);
         if(pageDTO.isEmpty()){
-            return "not-found.html";
+            throw new NoSuchElementException();
         }
 
         model.addAttribute("timesheet", pageDTO.get());

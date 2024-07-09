@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 @Repository
 public class TimesheetRepository {
@@ -19,10 +20,6 @@ public class TimesheetRepository {
         return timesheetList.stream()
                 .filter(it -> Objects.equals(it.getId(), id))
                 .findFirst();
-    }
-
-    public List<Timesheet> getAll() {
-        return List.copyOf(timesheetList);
     }
 
     public Timesheet create(Timesheet timesheet) {
@@ -38,19 +35,19 @@ public class TimesheetRepository {
                 .ifPresent(timesheetList::remove);
     }
 
-    //TODO переписать методы filterAfter/Before и getAll в один
-    // в объединенном методе ifы на проверку значений
-    // если указано 2 -> делать выборку между
-    // 1 ч 9 минут, на моздании ссылки на один лист
-    public List<Timesheet> filterAfter(LocalDate filterDate) {
-        return List.copyOf(timesheetList.stream()
-                .filter(timesheet -> timesheet.getCreatedAt().isAfter(filterDate))
-                .toList());
-    }
+    public List<Timesheet> findAll(LocalDate createdAtBefore, LocalDate createdAtAfter) {
+        Predicate<Timesheet> filter = it -> true;
 
-    public List<Timesheet> filterBefore(LocalDate filterDate) {
-        return List.copyOf(timesheetList.stream()
-                .filter(timesheet -> timesheet.getCreatedAt().isBefore(filterDate))
-                .toList());
+        if (Objects.nonNull(createdAtBefore)) {
+            filter = filter.and(it -> it.getCreatedAt().isBefore(createdAtBefore));
+        }
+
+        if (Objects.nonNull(createdAtAfter)) {
+            filter = filter.and(it -> it.getCreatedAt().isAfter(createdAtAfter));
+        }
+
+        return timesheetList.stream()
+                .filter(filter)
+                .toList();
     }
 }

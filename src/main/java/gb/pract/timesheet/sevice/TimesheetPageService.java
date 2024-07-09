@@ -2,12 +2,11 @@ package gb.pract.timesheet.sevice;
 
 import gb.pract.timesheet.model.Project;
 import gb.pract.timesheet.model.Timesheet;
-import gb.pract.timesheet.model.dto.TimesheetPageDTO;
+import gb.pract.timesheet.page.TimesheetPageDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -18,12 +17,12 @@ public class TimesheetPageService {
     private final ProjectService projectService;
 
     public Optional<TimesheetPageDTO> findById(Long id) {
-        return timesheetService.getById(id)
+        return timesheetService.findById(id)
                 .map(this::convert);
     }
 
     public List<TimesheetPageDTO> findAll() {
-        return timesheetService.getAll().stream()
+        return timesheetService.findAll(null, null).stream()
                 .map(this::convert)
                 .toList();
     }

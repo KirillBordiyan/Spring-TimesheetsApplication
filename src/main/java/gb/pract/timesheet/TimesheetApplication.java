@@ -19,8 +19,6 @@ public class TimesheetApplication {
 
 	public static void main(String[] args) {
 		ApplicationContext context = SpringApplication.run(TimesheetApplication.class, args);
-//		TimesheetRepository tr = context.getBean(TimesheetRepository.class);
-//		ProjectRepository pr = context.getBean(ProjectRepository.class);
 		ProjectService ps = context.getBean(ProjectService.class);
 		TimesheetService ts = context.getBean(TimesheetService.class);
 		Random rnd = new Random();
