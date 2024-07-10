@@ -1,4 +1,4 @@
-package gb.pract.timesheet.exception;
+package gb.pract.timesheet.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

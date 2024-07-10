@@ -1,4 +1,4 @@
-package gb.pract.timesheet.exception;
+package gb.pract.timesheet.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
