@@ -11,6 +11,13 @@
 <h1>Timesheet #<span th:text="${timesheet.id}"></span></h1>
 Запись создана: <span th:text="${timesheet.createdAt}"></span><br>
 Минут потрачено: <span th:text="${timesheet.minutes}"></span><br>
-Название проекта: <span th:text="${timesheet.projectName}"></span>
+Название проекта: <a th:href="@{'/home/projects/{id}' (id=${timesheet.projectId})}"><span
+        th:text="${timesheet.projectName}"></span></a>
+<br>
+<br>
+<a th:href="@{'/home/timesheets'}">Список Timesheets</a><br>
+<a th:href="@{'/home/projects'}">Список проектов</a>
+
+
 </body>
 </html>

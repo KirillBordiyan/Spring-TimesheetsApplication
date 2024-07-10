@@ -5,25 +5,25 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Timesheet</title>
+    <title>Project</title>
 </head>
 <body>
-<h1>Записи учета рабочего времени</h1>
+<h1>Project #<span th:text="${project.id}"></span></h1>
+Наименование проекта: <span th:text="${project.name}"></span><br>
+Список записей времени:<br>
 <table>
     <thead>
     <tr>
         <th> Идентификатор записи</th>
-        <th> Проект</th>
-        <th> Минут потрачено</th>
-        <th> Дата записи</th>
+        <th> Потрачено минут</th>
+        <th> Дата создания</th>
         <th> Перейти к записи</th>
     </tr>
     </thead>
     <tbody>
 
-    <tr th:each="timesheet : ${timesheets}">
+    <tr th:each="timesheet : ${projectTimesheets}">
         <td><span th:text="${timesheet.id}"></span></td>
-        <td><span th:text="${timesheet.projectName}"></span></td>
         <td><span th:text="${timesheet.minutes}"></span></td>
         <td><span th:text="${timesheet.createdAt}"></span></td>
         <td><a th:href="@{'/home/timesheets/{id}' (id=${timesheet.id})}"> Перейти к записи</a></td>
@@ -32,7 +32,9 @@
 </table>
 <br>
 <br>
+<a th:href="@{'/home/timesheets'}">Список Timesheets</a><br>
 <a th:href="@{'/home/projects'}">Список проектов</a>
+
 
 </body>
 </html>

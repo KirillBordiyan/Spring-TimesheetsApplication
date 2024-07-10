@@ -21,7 +21,7 @@ public class TimesheetPageController {
     private final TimesheetPageService timesheetPageService;
 
     @GetMapping
-    public String getAllTimesheets(Model model){
+    public String getAllTimesheets(Model model) {
         List<TimesheetPageDTO> timesheets = timesheetPageService.findAll();
         model.addAttribute("timesheets", timesheets);
         return "timesheets-page.html";
@@ -31,7 +31,7 @@ public class TimesheetPageController {
     public String getTimesheetsPage(@PathVariable Long id, Model model) {
 
         Optional<TimesheetPageDTO> pageDTO = timesheetPageService.findById(id);
-        if(pageDTO.isEmpty()){
+        if (pageDTO.isEmpty()) {
             throw new NoSuchElementException();
         }
 

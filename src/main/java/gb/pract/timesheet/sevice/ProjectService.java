@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -20,7 +19,7 @@ public class ProjectService {
         return projectRepository.findById(id);
     }
 
-    public List<Project> getAll() {
+    public List<Project> findAll() {
         return projectRepository.findAll();
     }
 

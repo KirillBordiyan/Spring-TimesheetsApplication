@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -9,5 +9,10 @@
 </head>
 <body>
 <h1>Что-то пошло не так</h1>
+
+<br>
+<br>
+<a th:href="@{'/home/timesheets'}">Список Timesheets</a><br>
+<a th:href="@{'/home/projects'}">Список проектов</a>
 </body>
 </html>

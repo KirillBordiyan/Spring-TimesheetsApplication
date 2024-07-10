@@ -24,7 +24,7 @@ public class PageExceptionController {
     public String handleNoSuchElementException(NoSuchElementException e) {
         return "not-found.html";
     }
-//TODO 1.55
+
     @ExceptionHandler(Exception.class)
     public String handleException(Exception e) {
         return "redirect:/home/oops";

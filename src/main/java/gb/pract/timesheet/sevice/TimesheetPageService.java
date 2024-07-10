@@ -18,16 +18,16 @@ public class TimesheetPageService {
 
     public Optional<TimesheetPageDTO> findById(Long id) {
         return timesheetService.findById(id)
-                .map(this::convert);
+                .map(this::convertTimesheet);
     }
 
     public List<TimesheetPageDTO> findAll() {
         return timesheetService.findAll(null, null).stream()
-                .map(this::convert)
+                .map(this::convertTimesheet)
                 .toList();
     }
 
-    private TimesheetPageDTO convert(Timesheet timesheet){
+    public TimesheetPageDTO convertTimesheet(Timesheet timesheet) {
         Project project = projectService.getById(timesheet.getProjectId()).orElseThrow();
 
         TimesheetPageDTO timesheetPageDTO = new TimesheetPageDTO();
@@ -36,6 +36,7 @@ public class TimesheetPageService {
         timesheetPageDTO.setCreatedAt(String.valueOf(timesheet.getCreatedAt()));
         timesheetPageDTO.setMinutes(String.valueOf(timesheet.getMinutes()));
         timesheetPageDTO.setProjectName(project.getName());
+        timesheetPageDTO.setProjectId(String.valueOf(project.getProject_id()));
 
         return timesheetPageDTO;
     }

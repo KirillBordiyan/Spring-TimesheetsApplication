@@ -8,5 +8,6 @@ public class TimesheetPageDTO {
     private String minutes;
     private String createdAt;
     private String projectName;
+    private String projectId;
 
 }

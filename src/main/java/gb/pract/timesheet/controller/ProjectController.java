@@ -20,7 +20,7 @@ public class ProjectController {
 
     @GetMapping
     public ResponseEntity<List<Project>> getAll() {
-        return ResponseEntity.ok(projectService.getAll());
+        return ResponseEntity.ok(projectService.findAll());
     }
 
     @GetMapping("/{id}/timesheets")
