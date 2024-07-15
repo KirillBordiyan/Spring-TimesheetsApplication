@@ -20,15 +20,16 @@ public class TimesheetService {
     private final TimesheetRepository timesheetRepository;
     private final ProjectRepository projectRepository;
 
-    public Optional<Timesheet> findById(Long id) {
-        return timesheetRepository.getById(id);
+    public Optional<Timesheet> findById(java.lang.Long id) {
+        return timesheetRepository.findById(id);
     }
 
-    public List<Timesheet> findAll(LocalDate createdAtBefore, LocalDate createdAtAfter) {
-        return timesheetRepository.findAll(createdAtBefore, createdAtAfter);
+    //TODO переделать с границами
+    public List<Timesheet> findAll() {
+        return timesheetRepository.findAll();
     }
 
-    public Timesheet create(Timesheet timesheet) {
+    public Timesheet saveTimesheet(Timesheet timesheet) {
 
         if(Objects.isNull(timesheet.getProjectId())){
             throw new IllegalArgumentException("Project ID must not be null");
@@ -39,19 +40,21 @@ public class TimesheetService {
         }
 
         timesheet.setCreatedAt(LocalDate.now());
-        timesheetRepository.create(timesheet);
+        timesheetRepository.save(timesheet);
 
         Optional<Project> projectInnerDB = projectRepository.findById(timesheet.getProjectId());
 
         projectInnerDB.ifPresent(project -> {
-            Long projectId = project.getProject_id();
-            projectRepository.addTimesheet(projectId, timesheet);
+            Long projectId = project.getProjectId();
+            if(projectRepository.addTimesheet(projectId, timesheet)){
+                projectRepository.save(project);
+            }
         });
 
         return timesheet;
     }
 
-    public void delete(Long id) {
-        timesheetRepository.delete(id);
+    public void delete(java.lang.Long id) {
+        timesheetRepository.deleteById(id);
     }
 }

@@ -15,8 +15,8 @@ public class ProjectPageService {
     private final ProjectService projectService;
     private final TimesheetPageService timesheetPageService;
 
-    public Optional<ProjectPageDTO> findById(Long id) {
-        return projectService.getById(id)
+    public Optional<ProjectPageDTO> findById(java.lang.Long id) {
+        return projectService.findById(id)
                 .map(this::convertProject);
     }
 
@@ -31,7 +31,7 @@ public class ProjectPageService {
 
         ProjectPageDTO projectDTO = new ProjectPageDTO();
 
-        projectDTO.setId(String.valueOf(project.getProject_id()));
+        projectDTO.setId(String.valueOf(project.getProjectId()));
         projectDTO.setName(String.valueOf(project.getName()));
         projectDTO.setTimesheets(project.getTimesheetList().stream()
                 .map(timesheetPageService::convertTimesheet)

@@ -30,12 +30,12 @@ public class TimesheetController {
     @GetMapping
     public ResponseEntity<List<Timesheet>> findAll(@RequestParam(required = false) LocalDate createdAtAfter,
                                                    @RequestParam(required = false) LocalDate createdAtBefore) {
-        return ResponseEntity.ok(timesheetService.findAll(createdAtBefore, createdAtAfter));
+        return ResponseEntity.ok(timesheetService.findAll());
     }
 
     @PostMapping
     public ResponseEntity<Timesheet> create(@RequestBody Timesheet timesheet) {
-        timesheet = timesheetService.create(timesheet);
+        timesheet = timesheetService.saveTimesheet(timesheet);
         return ResponseEntity.status(HttpStatus.CREATED).body(timesheet);
     }
 

@@ -19,20 +19,20 @@ public class ProjectController {
     private final ProjectService projectService;
 
     @GetMapping
-    public ResponseEntity<List<Project>> getAll() {
+    public ResponseEntity<List<Project>> findAll() {
         return ResponseEntity.ok(projectService.findAll());
     }
 
     @GetMapping("/{id}/timesheets")
-    public ResponseEntity<List<Timesheet>> getTimesheetsByProjectId(@PathVariable Long id) {
-        Optional<Project> project = projectService.getById(id);
+    public ResponseEntity<List<Timesheet>> findTimesheetsByProjectId(@PathVariable Long id) {
+        Optional<Project> project = projectService.findById(id);
         return project.map(el -> ResponseEntity.status(HttpStatus.OK).body(el.getTimesheetList()))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Project> get(@PathVariable Long id) {
-        Optional<Project> project = projectService.getById(id);
+        Optional<Project> project = projectService.findById(id);
         return project.map(el -> ResponseEntity
                         .status(HttpStatus.OK).body(el))
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -41,7 +41,7 @@ public class ProjectController {
 
     @PostMapping
     public ResponseEntity<Project> create(@RequestBody Project project) {
-        project = projectService.create(project);
+        project = projectService.saveProject(project);
         return ResponseEntity.status(HttpStatus.CREATED).body(project);
     }
 

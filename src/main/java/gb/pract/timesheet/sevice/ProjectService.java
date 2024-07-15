@@ -5,6 +5,7 @@ import gb.pract.timesheet.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -15,7 +16,7 @@ public class ProjectService {
 
     private final ProjectRepository projectRepository;
 
-    public Optional<Project> getById(Long id) {
+    public Optional<Project> findById(Long id) {
         return projectRepository.findById(id);
     }
 
@@ -23,21 +24,22 @@ public class ProjectService {
         return projectRepository.findAll();
     }
 
-    public Project create(Project project) {
+    public Project saveProject(Project project) {
         if(Objects.isNull(project.getName())){
             throw new IllegalArgumentException("Project name must not be null");
         }
-        project = projectRepository.create(project);
+        project.setTimesheetList(new ArrayList<>());
+        projectRepository.save(project);
         return project;
     }
 
     public void delete(Long id) {
         projectRepository.findAll().stream()
-                .filter(project -> Objects.equals(project.getProject_id(), id))
+                .filter(project -> Objects.equals(project.getProjectId(), id))
                 .forEach(project -> project
                         .getTimesheetList()
                         .forEach(timesheet -> timesheet.setProjectId(-1L)));
 
-        projectRepository.delete(id);
+        projectRepository.deleteById(id);
     }
 }
