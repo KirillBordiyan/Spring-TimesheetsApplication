@@ -11,6 +11,7 @@ import java.util.function.Function;
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 
+    @Deprecated
     default boolean addTimesheet(Long projectId, Timesheet timesheet) {
         Project project = this.getReferenceById(projectId);
         return project.getTimesheetList().add(timesheet);

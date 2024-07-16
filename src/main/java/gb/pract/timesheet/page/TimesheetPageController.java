@@ -9,7 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -22,8 +24,10 @@ public class TimesheetPageController {
     private final TimesheetPageService timesheetPageService;
 
     @GetMapping
-    public String getAllTimesheets(Model model) {
-        List<TimesheetPageDTO> timesheets = timesheetPageService.findAll();
+    public String getAllTimesheets(Model model,
+                                   @RequestParam(required = false, name = "createdAfter")LocalDate createdAtAfter,
+                                   @RequestParam(required = false, name = "createdBefore") LocalDate createdAtBefore) {
+        List<TimesheetPageDTO> timesheets = timesheetPageService.findAll(createdAtAfter, createdAtBefore);
         model.addAttribute("timesheets", timesheets);
         return "timesheets-page.html";
     }

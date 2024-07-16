@@ -28,9 +28,17 @@ public class TimesheetService {
         return timesheetRepository.findById(id);
     }
 
-    //TODO переделать с границами
-    public List<Timesheet> findAll() {
-        return timesheetRepository.findAll();
+    public List<Timesheet> findAll(LocalDate createdAfter, LocalDate createdBefore) {
+        if(createdBefore == null && createdAfter == null) {
+            return timesheetRepository.findAll();
+        }
+        if(Objects.isNull(createdAfter)){
+            return timesheetRepository.findByCreatedAtBefore(createdBefore);
+        }
+        if(Objects.isNull(createdBefore)){
+            return timesheetRepository.findByCreatedAtAfter(createdAfter);
+        }
+        return timesheetRepository.findByCreatedAtBetween(createdAfter, createdBefore);
     }
 
     public Timesheet saveTimesheet(Timesheet timesheet) {

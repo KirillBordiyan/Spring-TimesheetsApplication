@@ -6,6 +6,7 @@ import gb.pract.timesheet.page.pageDTO.TimesheetPageDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,8 +22,8 @@ public class TimesheetPageService {
                 .map(this::convertTimesheet);
     }
 
-    public List<TimesheetPageDTO> findAll() {
-        return timesheetService.findAll().stream()
+    public List<TimesheetPageDTO> findAll(LocalDate createdAfter, LocalDate createdBefore) {
+        return timesheetService.findAll(createdAfter, createdBefore).stream()
                 .map(this::convertTimesheet)
                 .toList();
     }
