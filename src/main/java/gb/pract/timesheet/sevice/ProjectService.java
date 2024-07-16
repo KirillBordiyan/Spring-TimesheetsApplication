@@ -34,6 +34,7 @@ public class ProjectService {
         }
 
         project.setTimesheetList(new ArrayList<>());
+        project.setEmployeeList(new ArrayList<>());
         projectRepository.save(project);
         return project;
     }

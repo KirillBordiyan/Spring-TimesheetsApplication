@@ -7,6 +7,8 @@ import gb.pract.timesheet.repository.EmployeeRepository;
 import gb.pract.timesheet.repository.ProjectRepository;
 import gb.pract.timesheet.repository.TimesheetRepository;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.springframework.data.repository.cdi.Eager;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -71,23 +73,6 @@ public class TimesheetService {
             projectRepository.save(projectInnerDB);
             employeeRepository.save(employeeInnerDB);
         }
-
-
-
-//        projectInnerDB.ifPresent(project -> {
-//            Long projectId = project.getProjectId();
-//            if (projectRepository.addProjectParam(projectId, timesheet, Project::getTimesheetList)) {
-//                projectRepository.save(project);
-//            }
-//        });
-
-//        employeeInnerDB.ifPresent(employee -> {
-//            Long employeeId = employee.getEmployeeId();
-//            if (employeeRepository.addEmployeeParam(employeeId, timesheet, Employee::getTimesheetList)) {
-//                employeeRepository.save(employee);
-//            }
-//        });
-
 
         return timesheet;
     }

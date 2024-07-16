@@ -2,8 +2,6 @@ package gb.pract.timesheet.sevice;
 
 import gb.pract.timesheet.model.Employee;
 import gb.pract.timesheet.repository.EmployeeRepository;
-import gb.pract.timesheet.repository.ProjectRepository;
-import gb.pract.timesheet.repository.TimesheetRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,13 +13,12 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class EmployeeService {
-    
+
     private final EmployeeRepository employeeRepository;
 
-
     public List<Employee> findAll(Boolean stillWork) {
-        if(Objects.equals(stillWork, true)){
-           return employeeRepository.findByWorkStatus();
+        if (Objects.equals(stillWork, true)) {
+            return employeeRepository.findByWorkStatus();
         }
         return employeeRepository.findAll();
     }
@@ -32,7 +29,7 @@ public class EmployeeService {
     }
 
     public Employee saveEmployee(Employee employee) {
-        if(Objects.isNull(employee.getFullName())){
+        if (Objects.isNull(employee.getFullName())) {
             throw new IllegalArgumentException("Full name must not be null");
         }
         employee.setStillWork(true);
@@ -43,11 +40,12 @@ public class EmployeeService {
         return employee;
     }
 
-    public void deleteById(Long id) {
-        employeeRepository.findAll().stream()
-                .filter(employee -> Objects.equals(employee.getEmployeeId(), id))
-                .forEach(employee -> employee.setStillWork(false));
+    public void deactivateEmployeeById(Long id) {
+        Optional<Employee> employeeInnerDB = employeeRepository.findById(id);
 
-        employeeRepository.deleteById(id);
+        employeeInnerDB.ifPresent(employee -> {
+            employee.setStillWork(false);
+            employeeRepository.save(employee);
+        });
     }
 }

@@ -9,5 +9,6 @@ public class TimesheetPageDTO {
     private String createdAt;
     private String projectName;
     private String projectId;
-
+    private String employeeId;
+    private String employeeName;
 }

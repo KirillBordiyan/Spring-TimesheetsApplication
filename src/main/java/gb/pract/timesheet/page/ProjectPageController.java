@@ -1,7 +1,7 @@
 package gb.pract.timesheet.page;
 
 import gb.pract.timesheet.page.pageDTO.ProjectPageDTO;
-import gb.pract.timesheet.sevice.ProjectPageService;
+import gb.pract.timesheet.sevice.page.ProjectPageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,14 +28,15 @@ public class ProjectPageController {
     }
 
     @GetMapping("/{id}")
-    public String getProjectsPage(@PathVariable Long id, Model model) {
+    public String getProjectPage(@PathVariable Long id, Model model) {
 
         Optional<ProjectPageDTO> pageDTO = projectpageService.findById(id);
         if (pageDTO.isEmpty()) {
             throw new NoSuchElementException();
         }
 
-        model.addAttribute("projectTimesheets", pageDTO.get().getTimesheets());
+        model.addAttribute("projectTimesheets", pageDTO.get().getTimesheetList());
+        model.addAttribute("projectEmployees", pageDTO.get().getEmployeeList());
         model.addAttribute("project", pageDTO.get());
         return "project-page.html";
     }

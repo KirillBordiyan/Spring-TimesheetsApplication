@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.themeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Projects</title>
+</head>
+<body>
+<h1>Список всех сотрудников</h1>
+<table>
+    <thead>
+    <tr>
+        <th> Идентификатор сотрудника</th>
+        <th> ФИО сотрудника</th>
+        <th> Числится в штате</th>
+        <th> Перейти к сотруднику</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="employee : ${employees}">
+        <td><span th:text="${employee.employeeId}"></span></td>
+        <td><span th:text="${employee.fullName}"></span></td>
+        <td><span th:text="${employee.stillWork}"></span></td>
+        <td><a th:href="@{'/home/employees/{id}' (id=${employee.employeeId})}"> Перейти к сотруднику</a></td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<br>
+<a th:href="@{'/home/timesheets'}">Список Timesheets</a><br>
+<a th:href="@{'/home/projects'}">Список проектов</a><br>
+
+</body>
+</html>

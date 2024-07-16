@@ -16,6 +16,7 @@
         <th> Проект</th>
         <th> Минут потрачено</th>
         <th> Дата записи</th>
+        <th> Сотрудник</th>
         <th> Перейти к записи</th>
     </tr>
     </thead>
@@ -26,13 +27,17 @@
         <td><span th:text="${timesheet.projectName}"></span></td>
         <td><span th:text="${timesheet.minutes}"></span></td>
         <td><span th:text="${timesheet.createdAt}"></span></td>
+        <td><span th:text="${timesheet.employeeName}"></span></td>
+<!--        <td><a th:href="@{'/home/employees/{id}' (id=${timesheet.employeeId})"><span th:text="${timesheet.employeeName}"></span></a></td>-->
         <td><a th:href="@{'/home/timesheets/{id}' (id=${timesheet.id})}"> Перейти к записи</a></td>
     </tr>
     </tbody>
 </table>
 <br>
 <br>
-<a th:href="@{'/home/projects'}">Список проектов</a>
+<a th:href="@{'/home/projects'}">Список проектов</a><br>
+<a th:href="@{'/home/employees'}">Список сотрудников</a><br>
+
 
 </body>
 </html>

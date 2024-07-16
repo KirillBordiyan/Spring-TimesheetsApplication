@@ -2,7 +2,6 @@ package gb.pract.timesheet.controller;
 
 import gb.pract.timesheet.model.Employee;
 import gb.pract.timesheet.model.Timesheet;
-import gb.pract.timesheet.repository.EmployeeRepository;
 import gb.pract.timesheet.sevice.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,8 +20,8 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
     @GetMapping
-    public ResponseEntity<List<Employee>> findAllEmployees(@RequestParam(required = false) Boolean stillWork){
-        if(Objects.equals(stillWork, null)){
+    public ResponseEntity<List<Employee>> findAllEmployees(@RequestParam(required = false) Boolean stillWork) {
+        if (Objects.equals(stillWork, null)) {
             stillWork = true;
             //TODO если не указываем, что нужны все - ищем только работающих
             // если придет false, то его и передадим
@@ -31,7 +30,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Employee> findById(@PathVariable Long id){
+    public ResponseEntity<Employee> findById(@PathVariable Long id) {
         Optional<Employee> employee = employeeService.findById(id);
         return employee.map(value -> ResponseEntity
                         .status(HttpStatus.OK).body(value))
@@ -39,21 +38,21 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}/timesheets")
-    public ResponseEntity<List<Timesheet>> findTimesheetsByEmployeeId(@PathVariable Long id){
+    public ResponseEntity<List<Timesheet>> findTimesheetsByEmployeeId(@PathVariable Long id) {
         Optional<Employee> employee = employeeService.findById(id);
         return employee.map(el -> ResponseEntity.status(HttpStatus.OK).body(el.getTimesheetList()))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<Employee> saveEmployee(@RequestBody Employee employee){
+    public ResponseEntity<Employee> saveEmployee(@RequestBody Employee employee) {
         employee = employeeService.saveEmployee(employee);
         return ResponseEntity.status(HttpStatus.CREATED).body(employee);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        employeeService.deleteById(id);
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> deactivateEmployee(@PathVariable Long id) {
+        employeeService.deactivateEmployeeById(id);
         return ResponseEntity.noContent().build();
     }
 }

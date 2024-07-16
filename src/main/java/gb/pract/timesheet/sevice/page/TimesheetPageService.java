@@ -1,8 +1,12 @@
-package gb.pract.timesheet.sevice;
+package gb.pract.timesheet.sevice.page;
 
+import gb.pract.timesheet.model.Employee;
 import gb.pract.timesheet.model.Project;
 import gb.pract.timesheet.model.Timesheet;
 import gb.pract.timesheet.page.pageDTO.TimesheetPageDTO;
+import gb.pract.timesheet.sevice.EmployeeService;
+import gb.pract.timesheet.sevice.ProjectService;
+import gb.pract.timesheet.sevice.TimesheetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +20,7 @@ public class TimesheetPageService {
 
     private final TimesheetService timesheetService;
     private final ProjectService projectService;
+    private final EmployeeService employeeService;
 
     public Optional<TimesheetPageDTO> findById(java.lang.Long id) {
         return timesheetService.findById(id)
@@ -30,6 +35,7 @@ public class TimesheetPageService {
 
     public TimesheetPageDTO convertTimesheet(Timesheet timesheet) {
         Optional<Project> projectInnerDB = projectService.findById(timesheet.getProjectId());
+        Optional<Employee> employeeInnerDB = employeeService.findById(timesheet.getEmployeeId());
 
         TimesheetPageDTO timesheetPageDTO = new TimesheetPageDTO();
 
@@ -41,6 +47,12 @@ public class TimesheetPageService {
             timesheetPageDTO.setProjectId(String.valueOf(project.getProjectId()));
             timesheetPageDTO.setProjectName(project.getName());
         });
+
+        employeeInnerDB.ifPresent(employee -> {
+            timesheetPageDTO.setEmployeeId(String.valueOf(employee.getEmployeeId()));
+            timesheetPageDTO.setEmployeeName(employee.getFullName());
+        });
+
 
         return timesheetPageDTO;
     }

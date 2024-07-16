@@ -1,7 +1,8 @@
-package gb.pract.timesheet.sevice;
+package gb.pract.timesheet.sevice.page;
 
 import gb.pract.timesheet.model.Project;
 import gb.pract.timesheet.page.pageDTO.ProjectPageDTO;
+import gb.pract.timesheet.sevice.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +15,9 @@ public class ProjectPageService {
 
     private final ProjectService projectService;
     private final TimesheetPageService timesheetPageService;
+    private final EmployeePageService employeePageService;
 
-    public Optional<ProjectPageDTO> findById(java.lang.Long id) {
+    public Optional<ProjectPageDTO> findById(Long id) {
         return projectService.findById(id)
                 .map(this::convertProject);
     }
@@ -27,14 +29,17 @@ public class ProjectPageService {
                 .toList();
     }
 
-    private ProjectPageDTO convertProject(Project project) {
+    public ProjectPageDTO convertProject(Project project) {
 
         ProjectPageDTO projectDTO = new ProjectPageDTO();
 
         projectDTO.setId(String.valueOf(project.getProjectId()));
         projectDTO.setName(String.valueOf(project.getName()));
-        projectDTO.setTimesheets(project.getTimesheetList().stream()
+        projectDTO.setTimesheetList(project.getTimesheetList().stream()
                 .map(timesheetPageService::convertTimesheet)
+                .toList());
+        projectDTO.setEmployeeList(project.getEmployeeList().stream()
+                .map(employeePageService::convertEmployee)
                 .toList());
 
         return projectDTO;

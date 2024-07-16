@@ -12,11 +12,14 @@
 Запись создана: <span th:text="${timesheet.createdAt}"></span><br>
 Минут потрачено: <span th:text="${timesheet.minutes}"></span><br>
 Название проекта: <a th:href="@{'/home/projects/{id}' (id=${timesheet.projectId})}"><span
-        th:text="${timesheet.projectName}"></span></a>
+        th:text="${timesheet.projectName}"></span></a><br>
+Сотрудник: <a th:href="@{'/home/employees/{id}' (id=${timesheet.employeeId})}"><span
+        th:text="${timesheet.employeeName}"></span></a><br>
 <br>
 <br>
 <a th:href="@{'/home/timesheets'}">Список Timesheets</a><br>
-<a th:href="@{'/home/projects'}">Список проектов</a>
+<a th:href="@{'/home/projects'}">Список проектов</a><br>
+<a th:href="@{'/home/employees'}">Список сотрудников</a><br>
 
 
 </body>

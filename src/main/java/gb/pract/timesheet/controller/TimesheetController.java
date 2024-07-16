@@ -31,13 +31,14 @@ public class TimesheetController {
 
     }
 
-    @GetMapping //?createdBefore=..?created
+    @GetMapping
     public ResponseEntity<List<Timesheet>> findAll(@RequestParam(required = false, name = "createdAfter")
                                                    LocalDate createdAtAfter,
                                                    @RequestParam(required = false, name = "createdBefore")
                                                    LocalDate createdAtBefore) {
         return ResponseEntity.ok(timesheetService.findAll(createdAtAfter, createdAtBefore));
-        //TODO при передаче null в url будет MethodArgumentTypeMismatchException
+        //FIXME при передаче null в url будет MethodArgumentTypeMismatchException
+        // если ?createdBefore=..?created будет ошибка
     }
 
     @PostMapping

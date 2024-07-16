@@ -14,7 +14,7 @@
     <tr>
         <th> Идентификатор проекта</th>
         <th> Название проекта</th>
-        <th> Перейти к проекту</th>
+        <th> Перейти к записи</th>
     </tr>
     </thead>
     <tbody>
@@ -23,13 +23,13 @@
         <td><span th:text="${project.id}"></span></td>
         <td><span th:text="${project.name}"></span></td>
         <td><a th:href="@{'/home/projects/{id}' (id=${project.id})}"> Перейти к проекту</a></td>
-
     </tr>
     </tbody>
 </table>
 <br>
 <br>
 <a th:href="@{'/home/timesheets'}">Список Timesheets</a><br>
+<a th:href="@{'/home/employees'}">Список сотрудников</a><br>
 
 </body>
 </html>

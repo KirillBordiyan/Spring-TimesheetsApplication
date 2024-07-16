@@ -9,15 +9,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.NoSuchElementException;
 
-@Controller
+//@Controller
 @ControllerAdvice(basePackageClasses = PageExceptionController.class)
 public class PageExceptionController {
 
-    @GetMapping("/home/oops")
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public String oopsRedirect() {
-        return "oops.html";
-    }
+//    @GetMapping("/home/oops")
+//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    public String oopsRedirect() {
+//        return "oops.html";
+//    }
 
     @ExceptionHandler(NoSuchElementException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
@@ -27,6 +27,9 @@ public class PageExceptionController {
 
     @ExceptionHandler(Exception.class)
     public String handleException(Exception e) {
-        return "redirect:/home/oops";
+        return "not-found.html";
+        //TODO вернуть комменты, если нужно будет оставить редирект
+        // пока повторение нормально, не обращать внимания
+//        return "redirect:/home/oops";
     }
 }
