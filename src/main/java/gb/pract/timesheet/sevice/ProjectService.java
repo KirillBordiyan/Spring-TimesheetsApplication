@@ -1,6 +1,8 @@
 package gb.pract.timesheet.sevice;
 
+import gb.pract.timesheet.model.Employee;
 import gb.pract.timesheet.model.Project;
+import gb.pract.timesheet.repository.EmployeeRepository;
 import gb.pract.timesheet.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,12 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 @RequiredArgsConstructor
 public class ProjectService {
 
     private final ProjectRepository projectRepository;
+    private final EmployeeRepository employeeRepository;
 
     public Optional<Project> findById(Long id) {
         return projectRepository.findById(id);
@@ -28,6 +32,7 @@ public class ProjectService {
         if(Objects.isNull(project.getName())){
             throw new IllegalArgumentException("Project name must not be null");
         }
+
         project.setTimesheetList(new ArrayList<>());
         projectRepository.save(project);
         return project;

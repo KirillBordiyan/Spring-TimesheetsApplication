@@ -1,5 +1,8 @@
 package gb.pract.timesheet.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonValue;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,11 +20,9 @@ public class Employee {
     private Long employeeId;
     private String fullName;
     private Boolean stillWork;
-    //TODO аннотации transient(тк не по объекту целиком, а только id)
     @OneToMany
     private List<Timesheet> timesheetList;
-    //todo manytomany
     @ManyToMany(mappedBy = "employeeList")
+    @JsonIgnoreProperties(value = {"timesheetList", "employeeList"})
     private List<Project> projectList;
-
 }

@@ -2,7 +2,7 @@ package gb.pract.timesheet.sevice;
 
 import gb.pract.timesheet.model.Project;
 import gb.pract.timesheet.model.Timesheet;
-import gb.pract.timesheet.page.TimesheetPageDTO;
+import gb.pract.timesheet.page.pageDTO.TimesheetPageDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

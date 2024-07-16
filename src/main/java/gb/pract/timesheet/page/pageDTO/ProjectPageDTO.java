@@ -1,4 +1,4 @@
-package gb.pract.timesheet.page;
+package gb.pract.timesheet.page.pageDTO;
 
 import lombok.Data;
 
