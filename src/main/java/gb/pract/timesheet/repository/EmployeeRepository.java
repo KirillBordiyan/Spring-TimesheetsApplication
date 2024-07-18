@@ -14,9 +14,13 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     @Query("select e from Employee e where e.stillWork = true")
     List<Employee> findByWorkStatus();
 
+    @Deprecated
     default <T> void addEmployeeParam(Long employeeId, T object, Function<Employee, List<T>> getListFunction) {
         Employee employee = this.getReferenceById(employeeId);
         getListFunction.apply(employee).add(object);
+        //FIXME метод писал, когда думал, что надо добавить списки телефонов и/или почт
+        // в таких условиях думаю, он ок
+        // оставлю, тк может быть будет что-то добавляться
     }
 }
 

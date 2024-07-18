@@ -15,7 +15,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 @Component
 @RequiredArgsConstructor
-public final class InputDataInitializer implements CommandLineRunner {
+public class InputDataInitializer implements CommandLineRunner {
 
     private final ProjectService projectService;
     private final TimesheetService timesheetService;

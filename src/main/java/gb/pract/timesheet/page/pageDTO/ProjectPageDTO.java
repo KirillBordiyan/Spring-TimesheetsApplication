@@ -11,7 +11,7 @@ public class ProjectPageDTO {
     private String name;
     private List<TimesheetPageDTO> timesheetList;
 //    @JsonIgnoreProperties(value = {"timesheetList"})
-//FIXME здесь МОЖНО блокировать поля, например, projectList и timesheetList,
+//TODO здесь МОЖНО блокировать поля, например, projectList и timesheetList,
 // в объектах EmployeePageDTO на ПРИ КРУГОВОЙ СВЯЗИ - аннотация выше
     private List<EmployeePageDTO> employeeList;
 }

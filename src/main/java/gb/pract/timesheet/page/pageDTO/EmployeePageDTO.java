@@ -10,6 +10,6 @@ public class EmployeePageDTO {
     private String fullName;
     private String stillWork;
     private List<TimesheetPageDTO> timesheetList;
-    //FIXME сотрудник не хранит проекты, в которых принимал участие, тк
+    //TODO сотрудник не хранит проекты, в которых принимал участие, тк
     // спринг падает на циклическом вызове методов конвертации
 }
