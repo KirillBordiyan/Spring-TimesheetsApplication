@@ -17,7 +17,7 @@ public class EmployeeService {
     private final EmployeeRepository employeeRepository;
 
     public List<Employee> findAll(Boolean stillWork) {
-        if (Objects.equals(stillWork, true)) {
+        if (Objects.equals(stillWork, true) || Objects.isNull(stillWork)) {
             return employeeRepository.findByWorkStatus();
         }
         return employeeRepository.findAll();

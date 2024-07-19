@@ -1,7 +1,6 @@
 package gb.pract.timesheet.controller;
 
 import gb.pract.timesheet.model.Employee;
-import gb.pract.timesheet.model.Project;
 import gb.pract.timesheet.model.Timesheet;
 import gb.pract.timesheet.sevice.EmployeeService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -137,7 +136,7 @@ public class EmployeeController {
                             content = @Content(schema = @Schema(implementation = Employee.class)))
             }
     )
-    @PutMapping("/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deactivateEmployee(@Parameter(description = "ID для удаления сотрудника (увольнения)")
                                                        @PathVariable Long id) {
         employeeService.deactivateEmployeeById(id);

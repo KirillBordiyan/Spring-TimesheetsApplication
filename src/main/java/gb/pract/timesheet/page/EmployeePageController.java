@@ -31,7 +31,7 @@ public class EmployeePageController {
     @GetMapping("/{id}")
     public String getEmployeePage(@PathVariable Long id, Model model) {
         Optional<EmployeePageDTO> pageDTO = employeePageService.findById(id);
-        if(pageDTO.isEmpty()){
+        if (pageDTO.isEmpty()) {
             throw new NoSuchElementException();
         }
 
