@@ -1,0 +1,18 @@
+springdoc:
+  swagger-ui:
+    path: /timesheets-documentation
+  api-docs:
+    path: /timesheets-api-documentation
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/timesheets
+#    url: jdbc:h2:mem:test
+    username: sa
+    password: sa
+    driver-class-name: org.postgresql.Driver
+#    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+#    show-sql: true

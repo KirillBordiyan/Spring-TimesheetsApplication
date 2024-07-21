@@ -81,3 +81,18 @@ HW6
 Переделана логика сохранения timesheet, но предыдущий метод оставлен, тк, по-моему, он удобнее,
         если данных у сотрудника в виде списка будет куда больше (но пометил как @Deprecated).
 Обновлена логика удаления timesheet.
+
+
+HW7
+БД переехала в PostgreSQL в контейнер (была некоторая необходимость видеть перед собой таблицы)
+docker run --name timesheets-cont -p 5432:5432 -e POSTGRES_USER=sa -ePOSTGRES_PASSWORD=sa -e POSTGRES_DB=timesheets -d postgres
+docker exec -ti timesheets-cont psql -U sa -d timesheets
+
+Перечитывая статью раз 6 за все время, посетила мысль, которая все-таки позволила сделать кастомную ссылку на swagger доку
+    без дополнительных классов-конфигов
+
+
+
+drop sequence client_seq, clients_seq, employee_seq, role_seq, timesheet_seq, project_seq;
+drop table client, client_role, client_roles, clients, employee, employee_timesheet_list, project, project_employee, project_timesheet_list, role,  timesheet;
+
