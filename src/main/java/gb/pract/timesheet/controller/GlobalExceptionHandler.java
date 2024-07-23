@@ -1,14 +1,12 @@
 package gb.pract.timesheet.controller;
 
-import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import java.text.ParseException;
-import java.time.format.DateTimeParseException;
 import java.util.NoSuchElementException;
 
 @RestControllerAdvice(basePackageClasses = GlobalExceptionHandler.class)
@@ -24,6 +22,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ExceptionResponse> handleNoSuchElementException(NoSuchElementException e) {
         ExceptionResponse response = new ExceptionResponse(e.getMessage(), 404);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleUsernameNotFoundException(UsernameNotFoundException e){
+        ExceptionResponse response = new ExceptionResponse(e.getMessage(), 404);
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

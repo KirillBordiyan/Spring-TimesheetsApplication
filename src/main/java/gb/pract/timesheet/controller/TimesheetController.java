@@ -25,7 +25,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/timesheets")
+@RequestMapping("/api/timesheets")
 @RequiredArgsConstructor
 @Tag(name = "Timesheet", description = "Для взаимодействия с Timesheet")
 public class TimesheetController {

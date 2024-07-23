@@ -33,10 +33,13 @@ public class InputDataInitializer implements CommandLineRunner {
 
         Role roleAdmin = new Role();
         Role roleUser = new Role();
+        Role roleRest = new Role();
         roleUser.setRoleName("user");
         roleAdmin.setRoleName("admin");
+        roleRest.setRoleName("rest");
         roleRepository.save(roleUser);
         roleRepository.save(roleAdmin);
+        roleRepository.save(roleRest);
 
         Client client1 = new Client();
         client1.setLogin("user1");
@@ -62,7 +65,7 @@ public class InputDataInitializer implements CommandLineRunner {
         client3.setLogin("user3");
         client3.setPassword(coder.encode("user3"));
         client3.setRoles(new HashSet<>(List.of(
-                roleRepository.getReferenceById(2L)
+                roleRepository.getReferenceById(3L)
         )));
         clientService.saveClient(client3);
         System.out.println(client3);

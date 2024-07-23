@@ -63,7 +63,7 @@ public class TimesheetService {
         Employee employeeInnerDB = employeeRepository.getReferenceById(timesheet.getEmployeeId());
 
         try {
-            //FIXME пока оставлю
+            //TODO пока оставлю
             // новый варик ниже, но он мне не нравится
 //            Long projectId = projectInnerDB.getProjectId();
 //            Long employeeId = employeeInnerDB.getEmployeeId();
@@ -86,7 +86,7 @@ public class TimesheetService {
     }
 
     public void delete(Long id) {
-        //FIXME пришлось удалять последовательно, тк кидало 500 о нарушении целостности
+        //TODO пришлось удалять последовательно, тк кидало 500 о нарушении целостности
         // пробовал через @Transactional, но безрезультатно, наверное что-то упустил
         Optional<Timesheet> timesheet = timesheetRepository.findById(id);
         timesheet.ifPresent(timesheetI -> {

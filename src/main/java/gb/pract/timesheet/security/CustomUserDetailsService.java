@@ -1,14 +1,17 @@
 package gb.pract.timesheet.security;
 
 import gb.pract.timesheet.model.Client;
-import gb.pract.timesheet.model.depracated.RoleEnumDeprecated;
+import gb.pract.timesheet.model.Role;
 import gb.pract.timesheet.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -24,17 +27,15 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .findByLogin(login)
                 .orElseThrow(() -> new UsernameNotFoundException("Пользователь с login: " + login + " не найден"));
 
-        return User.builder()
-                .username(client.getLogin())
-                .password(client.getPassword())
-                .roles(getRole(client))
-                .build();
+        return new User(
+                client.getLogin(),
+                client.getPassword(),
+                getRole(client)
+        );
     }
 
-    private String[] getRole(Client client) {
-        if (client.getRoles() == null) {
-            return new String[]{RoleEnumDeprecated.USER.getRole()};
-        }
-        return client.getRoles().toString().split(", ");
+    private List<SimpleGrantedAuthority> getRole(Client client) {
+        List<String> clientRoles = client.getRoles().stream().map(Role::toString).toList();
+        return clientRoles.stream().map(SimpleGrantedAuthority::new).toList();
     }
 }

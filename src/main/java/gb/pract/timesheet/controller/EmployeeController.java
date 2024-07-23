@@ -19,7 +19,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/employees")
+@RequestMapping("/api/employees")
 @RequiredArgsConstructor
 @Tag(name = "Employee", description = "Для взаимодействия с Employee")
 public class EmployeeController {
@@ -39,9 +39,9 @@ public class EmployeeController {
                             responseCode = "200",
                             description = "Успешный ответ",
                             content = @Content(schema = @Schema(implementation = Employee.class))),
-                    //FIXME оставил, тк если вдруг искать вручную будет 400 из-за неправильного параметра
+                    //TODO оставил, тк если вдруг искать вручную будет 400 из-за неправильного параметра
                     @ApiResponse(
-                            responseCode = "400",
+                            responseCode = "500",
                             description = "Некорректные параметры запроса (stillWork !=true/false)",
                             content = @Content(schema = @Schema(implementation = ExceptionResponse.class)))
             }
