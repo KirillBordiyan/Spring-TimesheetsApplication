@@ -22,7 +22,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final CustomUserDetailsService detailsService;
 
-    //FIXME метод нужен чтобы проверить, какой пришел запрос/есть ли токен/все ли с ним ок
+    //TODO метод нужен чтобы проверить, какой пришел запрос/есть ли токен/все ли с ним ок
     // берет токен из заголовка Authorization, начинается с Bearer
     // дальше достаем токен и парсим его на части
     @Override

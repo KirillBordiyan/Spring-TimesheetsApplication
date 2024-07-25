@@ -1,8 +1,8 @@
-package gb.pract.timesheet.sevice.page;
+package gb.pract.timesheet.service.page;
 
 import gb.pract.timesheet.model.Employee;
 import gb.pract.timesheet.page.pageDTO.EmployeePageDTO;
-import gb.pract.timesheet.sevice.EmployeeService;
+import gb.pract.timesheet.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

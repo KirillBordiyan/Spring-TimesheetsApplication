@@ -1,5 +1,7 @@
-package gb.pract.timesheet.sevice;
+package gb.pract.timesheet.service;
 
+import gb.pract.timesheet.aop.myAnno.Recover;
+import gb.pract.timesheet.aop.myAnno.Timer;
 import gb.pract.timesheet.model.Employee;
 import gb.pract.timesheet.model.Project;
 import gb.pract.timesheet.model.Timesheet;
@@ -7,10 +9,7 @@ import gb.pract.timesheet.repository.EmployeeRepository;
 import gb.pract.timesheet.repository.ProjectRepository;
 import gb.pract.timesheet.repository.TimesheetRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.Fetch;
-import org.springframework.data.repository.cdi.Eager;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,17 +19,22 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Timer(enabled = false)
 public class TimesheetService {
 
     private final TimesheetRepository timesheetRepository;
     private final ProjectRepository projectRepository;
     private final EmployeeRepository employeeRepository;
 
-
-    public Optional<Timesheet> findById(java.lang.Long id) {
-        return timesheetRepository.findById(id);
+    @Recover(noRecovered = {ClassNotFoundException.class}) //если будет CNFE, то мы НЕ обработаем
+    public Optional<Timesheet> findById(Long id) {
+//        FIXME раскоментить + закоментить
+//          пример обработки исключения аспектом (см аспект RecoverAspect)
+        throw new ClassCastException("Исключение для проверки Аспекта");
+//        return timesheetRepository.findById(id);
     }
 
+    @Timer(enabled = false)
     public List<Timesheet> findAll(LocalDate createdAfter, LocalDate createdBefore) {
         if (createdBefore == null && createdAfter == null) {
             return timesheetRepository.findAll();
@@ -99,10 +103,10 @@ public class TimesheetService {
             );
             employeeRepository.findById(
                     timesheetI.getEmployeeId()).ifPresent(
-                            employee -> {
-                                employee.getTimesheetList().remove(timesheetI);
-                                employeeRepository.save(employee);
-                            });
+                    employee -> {
+                        employee.getTimesheetList().remove(timesheetI);
+                        employeeRepository.save(employee);
+                    });
 
         });
 

@@ -2,7 +2,7 @@ package gb.pract.timesheet.controller;
 
 import gb.pract.timesheet.model.Employee;
 import gb.pract.timesheet.model.Timesheet;
-import gb.pract.timesheet.sevice.EmployeeService;
+import gb.pract.timesheet.service.EmployeeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -48,7 +48,7 @@ public class EmployeeController {
     )
     @GetMapping
     public ResponseEntity<List<Employee>> findAllEmployees(@Parameter(description = "Учитывать работающих на данный момент или нет")
-                                                               @RequestParam(required = false) Boolean stillWork) {
+                                                           @RequestParam(required = false) Boolean stillWork) {
         if (Objects.equals(stillWork, null)) {
             stillWork = true;
         }
@@ -95,11 +95,12 @@ public class EmployeeController {
     )
     @GetMapping("/{id}/timesheets")
     public ResponseEntity<List<Timesheet>> findTimesheetsByEmployeeId(@Parameter(description = "ID сотрудника")
-                                                                          @PathVariable Long id) {
+                                                                      @PathVariable Long id) {
         Optional<Employee> employee = employeeService.findById(id);
         return employee.map(el -> ResponseEntity.status(HttpStatus.OK).body(el.getTimesheetList()))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
     @Operation(
             summary = "Post employee",
             description = "Метод для создания нового сотрудника",
@@ -117,7 +118,7 @@ public class EmployeeController {
     )
     @PostMapping
     public ResponseEntity<Employee> saveEmployee(@Parameter(description = "Тело создаваемого объекта")
-                                                     @RequestBody Employee employee) {
+                                                 @RequestBody Employee employee) {
         employee = employeeService.saveEmployee(employee);
         return ResponseEntity.status(HttpStatus.CREATED).body(employee);
     }
@@ -138,7 +139,7 @@ public class EmployeeController {
     )
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deactivateEmployee(@Parameter(description = "ID для удаления сотрудника (увольнения)")
-                                                       @PathVariable Long id) {
+                                                   @PathVariable Long id) {
         employeeService.deactivateEmployeeById(id);
         return ResponseEntity.noContent().build();
     }

@@ -1,7 +1,6 @@
 package gb.pract.timesheet.security;
 
 import gb.pract.timesheet.security.jwt.JwtAuthenticationFilter;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +23,7 @@ public class SecurityConfiguration {
 
     private final CustomUserDetailsService userDetailsService;
     private final JwtAuthenticationFilter jwtFilter;
-//    FIXME нужен был для обработки запросов с разными входными
+//    TODO нужен был для обработки запросов с разными входными
 //    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     @Bean
@@ -32,7 +31,7 @@ public class SecurityConfiguration {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
-//                FIXME что-то типа вот так делаются правила для нескольких точек входа
+//                TODO что-то типа вот так делаются правила для нескольких точек входа
 //                .exceptionHandling(handling -> handling
 //                        .authenticationEntryPoint((request, response, authException) -> {
 //                            if (request.getRequestURI().startsWith("/api")) {
@@ -47,13 +46,13 @@ public class SecurityConfiguration {
                     request.requestMatchers("/authenticate", "/timesheets-documentation", "/login").permitAll();
                     request.requestMatchers("/home/projects/**", "/home/employees/**").hasAuthority("admin");
                     request.requestMatchers("/home/timesheets/**").hasAnyAuthority("admin", "user");
-                    //FIXME тут, тк ссылка на рест не попадает не под один фильтр выше
+                    //TODO тут, тк ссылка на рест не попадает не под один фильтр выше
                     // обновлена ссылка на JSON, тут учтено
                     request.requestMatchers("/api/**").hasAuthority("rest");
                     request.anyRequest().authenticated();
                 })
                 .formLogin(httpFormLogin -> httpFormLogin
-                        //FIXME это надо для редиректа при успешной авторизации, расписано это в этом handler'е
+                        //TODO это надо для редиректа при успешной авторизации, расписано это в этом handler'е
                         .successHandler(new AuthenticationSuccessHandler())
                         .permitAll())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

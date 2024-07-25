@@ -1,27 +1,20 @@
 package gb.pract.timesheet.controller;
 
 import gb.pract.timesheet.model.Timesheet;
-import gb.pract.timesheet.sevice.TimesheetService;
-import io.swagger.v3.oas.annotations.OpenAPI31;
+import gb.pract.timesheet.service.TimesheetService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.models.annotations.OpenAPI30;
 import lombok.RequiredArgsConstructor;
-import org.springdoc.core.annotations.RouterOperation;
-import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.management.Descriptor;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -78,11 +71,11 @@ public class TimesheetController {
     @GetMapping
     public ResponseEntity<List<Timesheet>> findAll(
             @Parameter(description = "Дата ПОСЛЕ которой создана запись")
-                @RequestParam(required = false, name = "createdAfter")
-                LocalDate createdAtAfter,
+            @RequestParam(required = false, name = "createdAfter")
+            LocalDate createdAtAfter,
             @Parameter(description = "Дата ДО которой создана запись")
-                @RequestParam(required = false, name = "createdBefore")
-                LocalDate createdAtBefore) {
+            @RequestParam(required = false, name = "createdBefore")
+            LocalDate createdAtBefore) {
         return ResponseEntity.ok(timesheetService.findAll(createdAtAfter, createdAtBefore));
         //TODO при передаче null в url будет MethodArgumentTypeMismatchException
         // если ?createdBefore=..?created будет ошибка
@@ -108,8 +101,8 @@ public class TimesheetController {
             }
     )
     @PostMapping
-    public ResponseEntity<Timesheet> create(@Parameter(description ="Запись с минимальными требуемыми значениями")
-                                                @RequestBody Timesheet timesheet) {
+    public ResponseEntity<Timesheet> create(@Parameter(description = "Запись с минимальными требуемыми значениями")
+                                            @RequestBody Timesheet timesheet) {
         timesheet = timesheetService.saveTimesheet(timesheet);
         return ResponseEntity.status(HttpStatus.CREATED).body(timesheet);
     }

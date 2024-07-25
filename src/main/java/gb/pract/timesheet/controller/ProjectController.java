@@ -2,7 +2,7 @@ package gb.pract.timesheet.controller;
 
 import gb.pract.timesheet.model.Project;
 import gb.pract.timesheet.model.Timesheet;
-import gb.pract.timesheet.sevice.ProjectService;
+import gb.pract.timesheet.service.ProjectService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;

@@ -1,4 +1,4 @@
-package gb.pract.timesheet.sevice;
+package gb.pract.timesheet.service;
 
 import gb.pract.timesheet.model.Employee;
 import gb.pract.timesheet.repository.EmployeeRepository;

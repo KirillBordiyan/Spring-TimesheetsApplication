@@ -1,6 +1,5 @@
-package gb.pract.timesheet.sevice;
+package gb.pract.timesheet.service;
 
-import gb.pract.timesheet.model.Employee;
 import gb.pract.timesheet.model.Project;
 import gb.pract.timesheet.repository.EmployeeRepository;
 import gb.pract.timesheet.repository.ProjectRepository;
@@ -11,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 @RequiredArgsConstructor

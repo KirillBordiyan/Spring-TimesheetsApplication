@@ -1,7 +1,7 @@
 package gb.pract.timesheet.page;
 
 import gb.pract.timesheet.page.pageDTO.ProjectPageDTO;
-import gb.pract.timesheet.sevice.page.ProjectPageService;
+import gb.pract.timesheet.service.page.ProjectPageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

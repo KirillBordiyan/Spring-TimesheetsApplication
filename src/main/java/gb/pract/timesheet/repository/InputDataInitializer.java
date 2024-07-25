@@ -1,10 +1,10 @@
 package gb.pract.timesheet.repository;
 
 import gb.pract.timesheet.model.*;
-import gb.pract.timesheet.sevice.ClientService;
-import gb.pract.timesheet.sevice.EmployeeService;
-import gb.pract.timesheet.sevice.ProjectService;
-import gb.pract.timesheet.sevice.TimesheetService;
+import gb.pract.timesheet.service.ClientService;
+import gb.pract.timesheet.service.EmployeeService;
+import gb.pract.timesheet.service.ProjectService;
+import gb.pract.timesheet.service.TimesheetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
