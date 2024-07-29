@@ -46,10 +46,12 @@ public class TimesheetController {
     )
     @GetMapping("/{id}")
     public ResponseEntity<Timesheet> get(@PathVariable @Parameter(description = "Id таймшита") Long id) {
-        Optional<Timesheet> timesheet = timesheetService.findById(id);
-        return timesheet.map(value -> ResponseEntity
-                        .status(HttpStatus.OK).body(value))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+//        Optional<Timesheet> timesheet = timesheetService.findById(id);
+        boolean timesheet = timesheetService.findById(id);
+        throw new RuntimeException("Это ексептион в контроллере ->" + timesheet);
+//        return timesheet.map(value -> ResponseEntity
+//                        .status(HttpStatus.OK).body(value))
+//                .orElseGet(() -> ResponseEntity.notFound().build());
 
     }
 

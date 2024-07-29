@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Objects;
 
 @Slf4j
 @Component
@@ -46,16 +47,31 @@ public class RecoverAspect {
                 throw new RuntimeException("Исключение " + exc.getClass().getName() + " не обрабатывается");
             }
             if (method.getReturnType().isPrimitive()) {
-                log.error("return 0");
-//                throw new RuntimeException("Исключение, которое вернет 0");
-                return 0;
+                Class<?> type = method.getReturnType();
+                Object defaultValue = getDefaultValue(type);
+                log.error("return default primitive value ->> {}", defaultValue);
+                return defaultValue;
             }
             log.error("return null");
 //            throw new RuntimeException("Исключение, которое вернет null");  //увидим в постмане, если раскоментим
             return null;
         } else {
-            throw new RuntimeException("Исключение, когда аннотации @Recover не было");
+//            это чисто ради сообщения другого
+//            throw new RuntimeException("Исключение, когда аннотации @Recover не было");
+            throw exc;
         }
+    }
+
+    private Object getDefaultValue(Class<?> returnType) {
+        if (returnType == boolean.class) return false;
+        if (returnType == char.class) return '\u0000';
+        if (returnType == byte.class) return (byte) 0;
+        if (returnType == short.class) return (short) 0;
+        if (returnType == int.class) return 0;
+        if (returnType == long.class) return 0L;
+        if (returnType == float.class) return 0.0f;
+        if (returnType == double.class) return 0.0d;
+        return null;
     }
 
 

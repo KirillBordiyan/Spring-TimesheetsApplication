@@ -27,7 +27,7 @@ public class TimesheetService {
     private final EmployeeRepository employeeRepository;
 
     @Recover(noRecovered = {ClassNotFoundException.class}) //если будет CNFE, то мы НЕ обработаем
-    public Optional<Timesheet> findById(Long id) {
+    public /*Optional<Timesheet>*/boolean findById(Long id) {
 //        FIXME раскоментить + закоментить
 //          пример обработки исключения аспектом (см аспект RecoverAspect)
         throw new ClassCastException("Исключение для проверки Аспекта");
