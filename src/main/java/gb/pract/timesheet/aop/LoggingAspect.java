@@ -124,8 +124,10 @@ public class LoggingAspect {
             String name = "";
             String varValue = "";
             for (int j = 0; j < argsNames.length; j++) {
-                name = argsNames[j]; //имя передаваемого параметра (id, createdAt, ...)
-                varValue = args[j].toString(); // само значение
+                //имя передаваемого параметра (id, createdAt, ...)
+                name = argsNames[j];
+                // само значение (valueOf надо, чтобы предотвратить ошибку, если параметр null)
+                varValue = String.valueOf(args[j]);
                 varMap.put(name, varValue);
             }
             map.put(typeName, varMap);
@@ -135,7 +137,7 @@ public class LoggingAspect {
             return;
         }
 
-        //FIXME вроде бы по идее должно работать, при условии что передается несколько параметров разных типов
+        //TODO вроде бы по идее должно работать, при условии что передается несколько параметров разных типов
         // делал как мапа-в-мапе, да, можно было сделать каждый раз новая строка, но не знаю, ситуативно
         // мне больше нравится так, тут и тип, и название, и само значение
         log.info("LOGGING Before TimesheetService.{}() with params:-->> ", method);

@@ -34,10 +34,6 @@ public class TimesheetController {
                             responseCode = "200",
                             description = "Успешный ответ",
                             content = @Content(schema = @Schema(implementation = Timesheet.class))),
-//                    @ApiResponse(
-//                            responseCode = "400",
-//                            description = "Некорректный запрос",
-//                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
                     @ApiResponse(
                             responseCode = "404",
                             description = "Контент не найден",
@@ -46,13 +42,10 @@ public class TimesheetController {
     )
     @GetMapping("/{id}")
     public ResponseEntity<Timesheet> get(@PathVariable @Parameter(description = "Id таймшита") Long id) {
-//        Optional<Timesheet> timesheet = timesheetService.findById(id);
-        boolean timesheet = timesheetService.findById(id);
-        throw new RuntimeException("Это ексептион в контроллере ->" + timesheet);
-//        return timesheet.map(value -> ResponseEntity
-//                        .status(HttpStatus.OK).body(value))
-//                .orElseGet(() -> ResponseEntity.notFound().build());
-
+        Optional<Timesheet> timesheet = timesheetService.findById(id);
+        return timesheet.map(value -> ResponseEntity
+                        .status(HttpStatus.OK).body(value))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @Operation(
@@ -71,7 +64,7 @@ public class TimesheetController {
             }
     )
     @GetMapping
-    public ResponseEntity<List<Timesheet>> findAll(
+    public ResponseEntity<List<Timesheet>> findAllTimesheets(
             @Parameter(description = "Дата ПОСЛЕ которой создана запись")
             @RequestParam(required = false, name = "createdAfter")
             LocalDate createdAtAfter,

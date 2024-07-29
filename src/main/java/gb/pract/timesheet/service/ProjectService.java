@@ -1,7 +1,6 @@
 package gb.pract.timesheet.service;
 
 import gb.pract.timesheet.model.Project;
-import gb.pract.timesheet.repository.EmployeeRepository;
 import gb.pract.timesheet.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,6 @@ import java.util.Optional;
 public class ProjectService {
 
     private final ProjectRepository projectRepository;
-    private final EmployeeRepository employeeRepository;
 
     public Optional<Project> findById(Long id) {
         return projectRepository.findById(id);
