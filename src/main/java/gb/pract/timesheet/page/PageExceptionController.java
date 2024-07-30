@@ -1,4 +1,4 @@
-package gb.pract.timesheet.page;
+package gb.pract.timesheetRest.page;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;

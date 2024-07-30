@@ -1,4 +1,4 @@
-package gb.pract.timesheet;
+package gb.pract.timesheetRest;
 
 import io.jsonwebtoken.Jwts;
 import jakarta.xml.bind.DatatypeConverter;

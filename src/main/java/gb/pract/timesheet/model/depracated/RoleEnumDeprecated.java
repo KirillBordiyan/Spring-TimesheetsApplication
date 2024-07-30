@@ -1,4 +1,4 @@
-package gb.pract.timesheet.model.depracated;
+package gb.pract.timesheetRest.model.depracated;
 
 import lombok.Getter;
 

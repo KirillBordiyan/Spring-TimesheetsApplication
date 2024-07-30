@@ -1,4 +1,4 @@
-package gb.pract.timesheet.page.pageDTO;
+package gb.pract.timesheetRest.pageDTO;
 
 import lombok.Data;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

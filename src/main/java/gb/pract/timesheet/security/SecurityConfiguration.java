@@ -1,6 +1,6 @@
-package gb.pract.timesheet.security;
+package gb.pract.timesheetRest.security;
 
-import gb.pract.timesheet.security.jwt.JwtAuthenticationFilter;
+import gb.pract.timesheetRest.security.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

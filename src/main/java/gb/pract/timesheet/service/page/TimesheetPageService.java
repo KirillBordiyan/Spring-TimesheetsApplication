@@ -1,12 +1,12 @@
-package gb.pract.timesheet.service.page;
+package gb.pract.timesheetRest.service.page;
 
-import gb.pract.timesheet.model.Employee;
-import gb.pract.timesheet.model.Project;
-import gb.pract.timesheet.model.Timesheet;
-import gb.pract.timesheet.page.pageDTO.TimesheetPageDTO;
-import gb.pract.timesheet.service.EmployeeService;
-import gb.pract.timesheet.service.ProjectService;
-import gb.pract.timesheet.service.TimesheetService;
+import gb.pract.timesheetRest.model.Employee;
+import gb.pract.timesheetRest.model.Project;
+import gb.pract.timesheetRest.model.Timesheet;
+import gb.pract.timesheetRest.pageDTO.TimesheetPageDTO;
+import gb.pract.timesheetRest.service.EmployeeService;
+import gb.pract.timesheetRest.service.ProjectService;
+import gb.pract.timesheetRest.service.TimesheetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

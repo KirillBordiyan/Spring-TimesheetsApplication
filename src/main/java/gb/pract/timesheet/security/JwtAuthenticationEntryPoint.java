@@ -1,4 +1,4 @@
-package gb.pract.timesheet.security;
+package gb.pract.timesheetRest.security;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

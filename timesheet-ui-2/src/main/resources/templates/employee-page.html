@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.themeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Projects</title>
+</head>
+<body>
+<h1>Сотрудник #<span th:text="${employee.employeeId}"></span></h1>
+ФИО сотрудника: <span th:text="${employee.fullName}"></span><br>
+Список записей времени сотрудника:<br>
+<table>
+    <thead>
+    <tr>
+        <th> Идентификатор записи</th>
+        <th> Потрачено минут</th>
+        <th> Дата создания</th>
+        <th> Перейти к записи</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="timesheet : ${employeeTimesheets}">
+        <td><span th:text="${timesheet.id}"></span></td>
+        <td><span th:text="${timesheet.minutes}"></span></td>
+        <td><span th:text="${timesheet.createdAt}"></span></td>
+        <td><a th:href="@{'/timesheets/{id}' (id=${timesheet.id})}"> Перейти к записи</a></td>
+    </tr>
+    </tbody>
+</table>
+
+<br>
+<br>
+<a th:href="@{'/timesheets'}">Список Timesheets</a><br>
+<a th:href="@{'/projects'}">Список проектов</a><br>
+<a th:href="@{'/employees'}">Список сотрудников</a><br>
+
+</body>
+</html>

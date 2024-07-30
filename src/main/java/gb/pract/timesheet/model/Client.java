@@ -1,6 +1,6 @@
-package gb.pract.timesheet.model;
+package gb.pract.timesheetRest.model;
 
-import gb.pract.timesheet.model.depracated.RoleEnumDeprecated;
+import gb.pract.timesheetRest.model.depracated.RoleEnumDeprecated;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

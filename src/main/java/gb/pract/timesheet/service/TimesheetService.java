@@ -1,13 +1,13 @@
-package gb.pract.timesheet.service;
+package gb.pract.timesheetRest.service;
 
-import gb.pract.timesheet.aop.myAnno.Recover;
-import gb.pract.timesheet.aop.myAnno.Timer;
-import gb.pract.timesheet.model.Employee;
-import gb.pract.timesheet.model.Project;
-import gb.pract.timesheet.model.Timesheet;
-import gb.pract.timesheet.repository.EmployeeRepository;
-import gb.pract.timesheet.repository.ProjectRepository;
-import gb.pract.timesheet.repository.TimesheetRepository;
+import gb.pract.timesheetRest.aop.myAnno.Recover;
+import gb.pract.timesheetRest.aop.myAnno.Timer;
+import gb.pract.timesheetRest.model.Employee;
+import gb.pract.timesheetRest.model.Project;
+import gb.pract.timesheetRest.model.Timesheet;
+import gb.pract.timesheetRest.repository.EmployeeRepository;
+import gb.pract.timesheetRest.repository.ProjectRepository;
+import gb.pract.timesheetRest.repository.TimesheetRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
