@@ -96,7 +96,7 @@ class TimesheetControllerTest {
         //      -объекты подогнать по нужным вещам (будто отправляем их JSON в постмане)
         //      -в аннотации SpringBootTest добавляем классы-бины, которые попадут в контекст
         //      -для этих классов (репозиториев, сервисов) пишем @MockBean
-        //      -говорим doReturn(employee).when(mockRepository/service).method(args)
+        //      -говорим, например, doReturn(employee).when(mockRepository/service).method(args)
         //      -потом сравниваем, что вышло
         // вроде по логике все так, не пойму где ошибся
 
