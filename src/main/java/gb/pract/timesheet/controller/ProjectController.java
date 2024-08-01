@@ -79,7 +79,7 @@ public class ProjectController {
             }
     )
     @GetMapping("/{id}")
-    public ResponseEntity<Project> get(@Parameter(description = "ID проекта") @PathVariable Long id) {
+    public ResponseEntity<Project> findProjectById(@Parameter(description = "ID проекта") @PathVariable Long id) {
         Optional<Project> project = projectService.findById(id);
         return project.map(el -> ResponseEntity
                         .status(HttpStatus.OK).body(el))
