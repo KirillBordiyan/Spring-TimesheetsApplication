@@ -18,6 +18,7 @@
         <module>timesheet-rest</module>
         <module>timesheet-ui-2</module>
         <module>eureka-server</module>
+        <module>logging-starter</module>
     </modules>
 
     <properties>

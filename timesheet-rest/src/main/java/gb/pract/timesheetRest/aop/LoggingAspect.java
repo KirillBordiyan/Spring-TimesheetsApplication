@@ -1,7 +1,9 @@
 package gb.pract.timesheetRest.aop;
 
+import gb.pract.timesheetRest.aop.myAnno.Timer;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -9,6 +11,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -33,9 +36,10 @@ public class LoggingAspect {
 
     // тут представлены случаи, когда это срабатывает по ситуации независимо от аннотаций
 
-    @Pointcut("execution(* gb.pract.timesheet.service.TimesheetService.*(..))")
-    public void timesheetServiceMethodPointcut() {
-    }
+//    TODO 1 отключим это, чтобы тестировать в сервисе NewLoggingAspect
+//    @Pointcut("execution(* gb.pract.timesheet.service.TimesheetService.*(..))")
+//    public void timesheetServiceMethodPointcut() {
+//    }
 
     @Pointcut("execution(* gb.pract.timesheet.service.ProjectService.*(..))")
     public void ProjectServiceMethodPointcut() {
@@ -113,6 +117,11 @@ public class LoggingAspect {
     public void beforeTimesheetService(JoinPoint jp) {
 
         String method = jp.getSignature().getName();
+
+        if (method.equals("saveTimesheet")) {
+            return;
+        }
+
         Object[] args = jp.getArgs();
         String[] argsNames = ((MethodSignature) jp.getSignature()).getParameterNames();
         Class<?>[] paramTypes = ((MethodSignature) jp.getSignature()).getParameterTypes(); //нашел в тырнетах, вычленяет классы
@@ -133,10 +142,6 @@ public class LoggingAspect {
             map.put(typeName, varMap);
         }
 
-        if (method.equals("saveTimesheet")) {
-            return;
-        }
-
         //TODO вроде бы по идее должно работать, при условии что передается несколько параметров разных типов
         // делал как мапа-в-мапе, да, можно было сделать каждый раз новая строка, но не знаю, ситуативно
         // мне больше нравится так, тут и тип, и название, и само значение
@@ -150,12 +155,14 @@ public class LoggingAspect {
         log.info("-->> Type: {}, Val: {}", inner.getKey(), inner.getValue().entrySet());
     }
 
+
     // или в value = "timesheetServicePointcut()"
-    @After(value = "execution(* gb.pract.timesheet.service.TimesheetService.save*(Timesheet))")
-    public void afterTimesheetService(JoinPoint jp) {
-        String method = jp.getSignature().getName();
-        log.info("LOGGING After save -->> TimesheetService -->> {}();", method);
-    }
+    // TODO 2 этот тоже пока отключен
+//    @After(value = "execution(* gb.pract.timesheet.service.TimesheetService.save*(Timesheet))")
+//    public void afterTimesheetService(JoinPoint jp) {
+//        String method = jp.getSignature().getName();
+//        log.info("LOGGING After save -->> TimesheetService -->> {}();", method);
+//    }
 
 //    @AfterThrowing(value = "timesheetServiceMethodPointcut()", throwing = "ex")
 //    public void exceptionTimesheetServiceFindById(JoinPoint jp, Exception ex){

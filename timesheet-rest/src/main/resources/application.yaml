@@ -1,5 +1,11 @@
 server:
   port: 8080
+#это пришло из модуля логгирования, в частности, аспект Logging
+# указывать можно уровни, описанные внутри аспекта
+application:
+  logging:
+    level: WARN
+#    printArgs: true
 
 springdoc:
   swagger-ui:

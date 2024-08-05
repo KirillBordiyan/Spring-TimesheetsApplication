@@ -1,5 +1,6 @@
 package gb.pract.timesheetRest.service;
 
+import gb.pract.aspect.logging.Logging;
 import gb.pract.timesheetRest.aop.myAnno.Recover;
 import gb.pract.timesheetRest.aop.myAnno.Timer;
 import gb.pract.timesheetRest.model.Employee;
@@ -31,6 +32,7 @@ public class TimesheetService {
         return timesheetRepository.findById(id);
     }
 
+    @Logging(printArgs = true)
     public List<Timesheet> findAll(LocalDate createdAfter, LocalDate createdBefore) {
         if (createdBefore == null && createdAfter == null) {
             return timesheetRepository.findAll();
