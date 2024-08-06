@@ -12,11 +12,11 @@ import java.util.NoSuchElementException;
 @RestControllerAdvice(basePackageClasses = GlobalExceptionHandler.class)
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ExceptionResponse> handleException(Exception e) {
-        ExceptionResponse response = new ExceptionResponse(e.getMessage(), 500);
-        return ResponseEntity.internalServerError().body(response);
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<ExceptionResponse> handleException(Exception e) {
+//        ExceptionResponse response = new ExceptionResponse(e.getMessage(), 500);
+//        return ResponseEntity.internalServerError().body(response);
+//    }
 
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<ExceptionResponse> handleNoSuchElementException(NoSuchElementException e) {

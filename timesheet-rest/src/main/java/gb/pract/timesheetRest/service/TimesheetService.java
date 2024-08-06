@@ -1,7 +1,7 @@
 package gb.pract.timesheetRest.service;
 
 import gb.pract.aspect.logging.Logging;
-import gb.pract.timesheetRest.aop.myAnno.Recover;
+import gb.pract.aspect.recover.Recover;
 import gb.pract.timesheetRest.aop.myAnno.Timer;
 import gb.pract.timesheetRest.model.Employee;
 import gb.pract.timesheetRest.model.Project;
@@ -27,12 +27,15 @@ public class TimesheetService {
     private final ProjectRepository projectRepository;
     private final EmployeeRepository employeeRepository;
 
-    @Recover(noRecovered = {ClassNotFoundException.class}) //если будет CNFE, то мы НЕ обработаем
+    @Logging
+    @Recover(noRecovered = {ClassNotFoundException.class})
     public Optional<Timesheet> findById(Long id) {
-        return timesheetRepository.findById(id);
+        throw new ArithmeticException("выброшена в нужном месте");
+//        return timesheetRepository.findById(id);
     }
 
-    @Logging(printArgs = true)
+    @Logging(printArgsInside = false)
+    @Recover
     public List<Timesheet> findAll(LocalDate createdAfter, LocalDate createdBefore) {
         if (createdBefore == null && createdAfter == null) {
             return timesheetRepository.findAll();

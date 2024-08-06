@@ -19,6 +19,12 @@
 
         <dependency>
             <groupId>gb.pract</groupId>
+            <artifactId>recover-starter</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>gb.pract</groupId>
             <artifactId>logging-starter</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

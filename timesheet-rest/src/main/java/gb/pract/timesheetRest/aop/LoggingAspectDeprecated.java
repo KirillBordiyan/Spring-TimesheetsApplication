@@ -1,17 +1,13 @@
 package gb.pract.timesheetRest.aop;
 
-import gb.pract.timesheetRest.aop.myAnno.Timer;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -19,7 +15,7 @@ import java.util.stream.Stream;
 @Slf4j
 @Component
 @Aspect
-public class LoggingAspect {
+public class LoggingAspectDeprecated {
 
     //Before
     //After
@@ -77,7 +73,7 @@ public class LoggingAspect {
 
         log.info("LOGGING Before EmployeeService.{}() with params:-->> ", method);
         Stream.of(map.entrySet()).forEach(el -> el.forEach(
-                LoggingAspect::getInfo)
+                LoggingAspectDeprecated::getInfo)
         );
     }
 
@@ -109,7 +105,7 @@ public class LoggingAspect {
 
         log.info("LOGGING Before ProjectService.{}() with params:-->> ", method);
         Stream.of(map.entrySet()).forEach(el -> el.forEach(
-                LoggingAspect::getInfo)
+                LoggingAspectDeprecated::getInfo)
         );
     }
 
@@ -147,7 +143,7 @@ public class LoggingAspect {
         // мне больше нравится так, тут и тип, и название, и само значение
         log.info("LOGGING Before TimesheetService.{}() with params:-->> ", method);
         Stream.of(map.entrySet()).forEach(el -> el.forEach(
-                LoggingAspect::getInfo)
+                LoggingAspectDeprecated::getInfo)
         );
     }
 

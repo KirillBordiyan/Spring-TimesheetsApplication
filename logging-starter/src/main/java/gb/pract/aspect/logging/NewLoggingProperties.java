@@ -13,4 +13,6 @@ public class NewLoggingProperties {
 
     //тк Level это уже унам, можно сделать вот так:
     private Level level = Level.DEBUG;
+//    так как мы пришли к варианту, что можно выключать на уровне .yaml, тут можно этот параметр убрать
+//    private Boolean printArgs = true;
 }

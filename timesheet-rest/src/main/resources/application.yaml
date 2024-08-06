@@ -3,9 +3,14 @@ server:
 #это пришло из модуля логгирования, в частности, аспект Logging
 # указывать можно уровни, описанные внутри аспекта
 application:
+  recover:
+    enabled: true
+    no-recover-for: #НЕ нужно обрабатывать
+      - java.lang.ClassNotFoundException
+      - java.lang.ArithmeticException
   logging:
     level: WARN
-#    printArgs: true
+    enable-aspect: true #вкл или выклю всю систему в целом
 
 springdoc:
   swagger-ui:

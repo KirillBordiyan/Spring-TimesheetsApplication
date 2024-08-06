@@ -1,6 +1,6 @@
 package gb.pract.timesheetRest.aop;
 
-import gb.pract.timesheetRest.aop.myAnno.Recover;
+import gb.pract.timesheetRest.aop.myAnno.RecoverDeprecated;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -11,12 +11,11 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.Objects;
 
 @Slf4j
 @Component
 @Aspect
-public class RecoverAspect {
+public class RecoverAspectDeprecated {
 
 
     @Pointcut("@annotation(gb.pract.timesheet.aop.myAnno.Recover)")
@@ -28,15 +27,14 @@ public class RecoverAspect {
 
         Method method = ((MethodSignature) jp.getSignature()).getMethod();
 
-        //FIXME реализация и возвраты как по заданию (вроде), но из-за того, что у нас есть
+        //TODO реализация и возвраты как по заданию (вроде), но из-за того, что у нас есть
         //  GlobalExceptionHandler, где обработка исключений немного иная (в плане, всегда возвращаем ExceptionResponse)
         //  то как по мне лучше в каких-то конкретных ситуациях выбрасывать RuntimeException с разными сообщениями
         //  чтобы видеть различия получаемых сообщений (примерно как комменты ниже) -> так более понятно, наверное
         //  (если не делать здесь throw new Runtime(), то будет всегда сообщение из пришедшего Exc)
         //
-        if (method.isAnnotationPresent(Recover.class)) { //если представлена
-            Class<?>[] ignoredClasses = method.getAnnotation(Recover.class).noRecovered();
-
+        if (method.isAnnotationPresent(RecoverDeprecated.class)) { //если представлена
+            Class<?>[] ignoredClasses = method.getAnnotation(RecoverDeprecated.class).noRecovered();
 
             log.error("Исключение -->> {}", exc.getClass().getName());
             log.error("-->> {}", exc.getMessage()); //оригинальное сообщение, увидим в консоли

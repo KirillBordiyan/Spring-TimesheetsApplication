@@ -9,5 +9,5 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD, ElementType.TYPE})
 public @interface Logging {
 
-    boolean printArgs() default true;
+    boolean printArgsInside() default true;
 }
